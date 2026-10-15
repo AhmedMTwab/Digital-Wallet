@@ -1,3 +1,5 @@
+using DigitalWallet.CORE.ServiceInterfaces;
+using DigitalWallet.CORE.Services;
 using DigitalWallet.Infrastrucutre.DIContainer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructureLayerServices(builder.Configuration);
+builder.Services.AddControllers();
+
+builder.Services.AddScoped<IBankParserFactory,BankParserFactory>();
 
 
 var app = builder.Build();
@@ -15,7 +20,9 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+ 
 
 app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();
