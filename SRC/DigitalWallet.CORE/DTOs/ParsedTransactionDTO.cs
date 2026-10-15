@@ -6,7 +6,7 @@ namespace DigitalWallet.CORE.DTOs
     {
         public DateOnly Date { get; set; }
         public decimal Amount { get; set; }
-        public string ReferenceNumber { get; set; } = string.Empty;
+        public long ReferenceNumber { get; set; }
         public Dictionary<string, string> Notes { get; set; } = new();
     }
 }

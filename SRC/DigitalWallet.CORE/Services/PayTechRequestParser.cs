@@ -24,7 +24,11 @@ public class PayTechRequestParser : IRequestParser
                 NumberStyles.AllowDecimalPoint,
                 CultureInfo.InvariantCulture.NumberFormat);
 
-            var referenceNumber = components[1];
+            var referenceNumber = long.Parse(components[1]);
+            if (parsedTransactions.Any(t => t.ReferenceNumber == referenceNumber))
+            {
+                continue;
+            }
             var keyValuePairs = new Dictionary<string, string>();
             var notes = components[2].Split("/");
 
