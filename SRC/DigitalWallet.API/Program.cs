@@ -1,5 +1,6 @@
 using DigitalWallet.CORE.ServiceInterfaces;
 using DigitalWallet.CORE.Services;
+using DigitalWallet.Domain.RepositoryInterfaces;
 using DigitalWallet.Infrastrucutre.DIContainer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddInfrastructureLayerServices(builder.Configuration);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IBankParserFactory,BankParserFactory>();
+builder.Services.AddScoped<ITransactionServices, TransactionServices>();
 
 
 var app = builder.Build();

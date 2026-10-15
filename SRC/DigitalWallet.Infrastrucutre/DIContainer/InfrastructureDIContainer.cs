@@ -1,5 +1,7 @@
 using System;
+using DigitalWallet.Domain.RepositoryInterfaces;
 using DigitalWallet.Infrastrucutre.Context;
+using DigitalWallet.Infrastrucutre.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,7 @@ public static void AddInfrastructureLayerServices(this IServiceCollection servic
             {
                 options.UseSqlServer(configuration.GetConnectionString("ApplicationDb"));
             });
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
         }
           
 }
