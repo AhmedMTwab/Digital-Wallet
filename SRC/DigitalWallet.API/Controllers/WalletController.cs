@@ -9,10 +9,10 @@ namespace DigitalWallet.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WalletController(IBankParserFactory _bankParserFactory,IHandleTransactionRequest _service,IClientService _clientService) : ControllerBase
+    public class WalletController(IBankParserFactory _bankParserFactory,IHandleTransactionRequest _service,IClientService _clientService,ISendMoneyService _sendMoneyService) : ControllerBase
     {
         [HttpPost]
-        [Route("{bankName}")]
+        [Route("receive/{bankName}")]
         public async Task<IActionResult> ReciveMoney(string bankName, [FromHeader] string accountNumber)
         {
             if (!await _clientService.CheckClientExists(accountNumber))
@@ -30,6 +30,15 @@ namespace DigitalWallet.API.Controllers
            return Ok();
         }
 
-      
+        [HttpPost]
+        [Route("transfer")]
+        [Produces("application/xml")]
+        public async Task<IActionResult> SendMoney(SendMoneyDTO  sendMoneyDto)
+        {
+           var paymentMessage= _sendMoneyService.Handle(sendMoneyDto);
+           return Ok(paymentMessage); 
+        }
+
+
     }
 }

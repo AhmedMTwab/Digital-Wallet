@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructureLayerServices(builder.Configuration);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddXmlSerializerFormatters();;
 var hangfireConnectionString = builder.Configuration.GetConnectionString("ApplicationDb")
                                ?? throw new InvalidOperationException("Connection string 'ApplicationDb' is not configured.");
 
@@ -41,6 +41,7 @@ builder.Services.AddScoped<IBankParserFactory,BankParserFactory>();
 builder.Services.AddScoped<ITransactionServices, TransactionServices>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IHandleTransactionRequest, HandleTransactionRequest>();
+builder.Services.AddScoped<ISendMoneyService, SendMoneyService>();
 
 
 var app = builder.Build();
