@@ -8,12 +8,16 @@ namespace DigitalWallet.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WalletController(IBankParserFactory _bankParserFactory,ITransactionServices _service) : ControllerBase
+    public class WalletController(IBankParserFactory _bankParserFactory,ITransactionServices _service,IClientService _clientService) : ControllerBase
     {
         [HttpPost]
         [Route("{bankName}")]
         public async Task<IActionResult> ReciveMoney(string bankName, [FromHeader] string accountNumber)
         {
+            if (!await _clientService.CheckClientExists(accountNumber))
+            {
+                return BadRequest();
+            }
             var payload = await new StreamReader(Request.Body).ReadToEndAsync();
             string[] transactions = payload.Split("\n");
             var parser = await _bankParserFactory.CreateParser(bankName);
@@ -23,6 +27,7 @@ namespace DigitalWallet.API.Controllers
             }
             var parsedTransactions = await parser.Parse(transactions);
             var unexistedTransactions = await ExcludeExistedTransactions(parsedTransactions);
+            await _service.SaveTransactionsList(unexistedTransactions.ToList(), accountNumber);
            return Ok();
         }
 

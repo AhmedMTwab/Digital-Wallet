@@ -18,6 +18,7 @@ public static void AddInfrastructureLayerServices(this IServiceCollection servic
                 options.UseSqlServer(configuration.GetConnectionString("ApplicationDb"));
             });
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
         }
           
 }

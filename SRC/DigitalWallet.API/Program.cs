@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IBankParserFactory,BankParserFactory>();
 builder.Services.AddScoped<ITransactionServices, TransactionServices>();
+builder.Services.AddScoped<IClientService, ClientService>();
 
 
 var app = builder.Build();
