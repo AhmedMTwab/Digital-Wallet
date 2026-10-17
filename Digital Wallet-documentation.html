@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet - API Documentation</title>
+    <style>
+        body { margin: 0; padding: 0; }
+        #opencollection-container { width: 100vw; height: 100vh; }
+    </style>
+    <link rel="stylesheet" href="https://cdn.usebruno.com/api-docs/api-docs.css">
+    <script src="https://cdn.usebruno.com/api-docs/api-docs.js"></script>
+</head>
+<body>
+    <div id="opencollection-container"></div>
+    <script>
+        const collectionData = "opencollection: 1.0.0\ninfo:\n  name: Digital Wallet\nconfig:\n  proxy:\n    inherit: true\n    config:\n      protocol: http\n      hostname: ''\n      port: ''\n      auth:\n        username: ''\n        password: ''\n      bypassProxy: ''\nitems:\n  - info:\n      name: receiveMoney\n      type: http\n      seq: 1\n    http:\n      method: POST\n      url: http://localhost:5097/api/wallet/receive/PayTech\n      headers:\n        - name: AccountNumber\n          value: EG259729835692386598\n      body:\n        type: text\n        data: |-\n          20250615156,50#202506159000001#note/debt payment march/internal_reference/A462JE81\n          20250615156,50#202506159000001#note/debt payment march/internal_reference/A462JE81\n      auth: inherit\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n      forwardAuthorizationHeader: false\n  - info:\n      name: sendMoney\n      type: http\n      seq: 2\n    http:\n      method: POST\n      url: http://localhost:5097/api/wallet/transfer\n      body:\n        type: json\n        data: |-\n          {\n            \"amount\": 177.39,\n            \"currency\": \"SAR\",\n            \"senderAccountNumber\": \"SA6980000204608016212908\",\n            \"receiverAccountNumber\": \"SA6980000204608016211111\",\n            \"receiverBankCode\": \"FDCSSARI\",\n            \"receiverBeneficiaryName\": \"Jane Doe\",\n            \"notes\": [\n              \"Lorem Epsum\",\n              \"Dolor Sit Amet\"\n            ],\n            \"paymentType\": \"99\",\n            \"chargeDetails\": \"RB\"\n          }\n      auth: inherit\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n      forwardAuthorizationHeader: false\nbundled: true\nextensions:\n  bruno:\n    ignore:\n      - node_modules\n      - .git\n    exportedAt: '2026-10-16T20:37:50.370Z'\n    exportedUsing: Bruno/4.1.0\n";
+        new window.OpenCollection({
+            target: document.getElementById('opencollection-container'),
+            opencollection: collectionData,
+            theme: 'light'
+        });
+    </script>
+</body>
+</html>
